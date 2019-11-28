@@ -2266,7 +2266,7 @@ exec_bit_file(char *path, int jed_target, int debug)
 
 	if (strcasecmp(&path[strlen(path) - 4], ".img") != 0) {
 		/* Search for bitstream preamble and IDCODE markers */
-		for (i = 0, j = 0; i < flen - 32 && i < 2000; i++)
+		/*for (i = 0, j = 0; i < flen - 32 && i < 2000; i++)
 			if (inbuf[i] == 0xbd && inbuf[i + 1] == 0xb3
 			    && inbuf[i + 10] == 0xe2 && inbuf[i + 11] == 0
 			    && inbuf[i + 12] == 0 && inbuf[i + 13] == 0) {
@@ -2277,11 +2277,13 @@ exec_bit_file(char *path, int jed_target, int debug)
 			fprintf(stderr,
 			    "can't find IDCODE, invalid bitstream\n");
 			return (EXIT_FAILURE);
-		}
-		idcode = inbuf[i + 14] << 24;
+		}*/
+		idcode = 0x81113043;
+		/*idcode = inbuf[i + 14] << 24;
 		idcode += inbuf[i + 15] << 16;
 		idcode += inbuf[i + 16] << 8;
-		idcode += inbuf[i + 17];
+		idcode += inbuf[i + 17];*/
+		fprintf(stderr, "IDCODE: %x\n", idcode);
 
 		/* IDCODE_PUB(0xE0): check IDCODE */
 		buf_sprintf(op, "SIR	8	TDI	(E0);\n");
